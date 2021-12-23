@@ -1,0 +1,1 @@
+execute unless score brng.system forceloadrng matches 0 run forceload add 0 0
