@@ -26,7 +26,7 @@ item replace entity @a[team=Active] hotbar.5 with minecraft:tipped_arrow{Potion:
 item replace entity @a[team=Active] hotbar.0 with minecraft:stone_sword{Enchantments:[{id:"minecraft:knockback",lvl:3s}]}
 item replace entity @a[team=Active] hotbar.1 with minecraft:iron_pickaxe{Enchantments:[{id:"minecraft:efficiency",lvl:3s}]}
 item replace entity @a[team=Active] hotbar.2 with minecraft:bow{Enchantments:[{id:"minecraft:punch",lvl:2s},{id:"minecraft:infinity",lvl:1s}]}
-item replace entity @a[team=Active] hotbar.4 with ender_pearl 1
+item replace entity @a[team=Active] hotbar.4 with ender_pearl 16
 item replace entity @a[team=Active] hotbar.6 with ladder 8
 
 #Item block color \/
