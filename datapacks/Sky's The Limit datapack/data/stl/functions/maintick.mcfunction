@@ -16,7 +16,10 @@ clear @a[team=Spectator,scores={isOpped=0}]
 item replace entity @a[team=Active] inventory.18 with minecraft:stone_sword{Enchantments:[{id:"minecraft:knockback",lvl:3s}]}
 item replace entity @a[team=Active] inventory.20 with minecraft:bow{Enchantments:[{id:"minecraft:punch",lvl:2s},{id:"minecraft:infinity",lvl:1s}]}
 item replace entity @a[team=Active] inventory.19 with minecraft:iron_pickaxe{Enchantments:[{id:"minecraft:efficiency",lvl:3s}]}
-item replace entity @a[team=Active] inventory.22 with ender_pearl 16
+
+execute as @a store result score @s PearlCount run clear @s minecraft:ender_pearl 0
+give @a[team=Active,scores={PearlCount=0..8}] ender_pearl 8
+#item replace entity @a[team=Active] inventory.22 with ender_pearl 16
 
 #Item block color \/
 execute as @a[team=Active,scores={blockColor=0}] store result score @s BlockCount run clear @s minecraft:red_concrete 0
