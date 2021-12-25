@@ -19,8 +19,8 @@ execute at @e[tag=Setup] run playsound entity.experience_orb.pickup ambient @a ~
 scoreboard players set @a isInGame 1
 
 #TNT arrows \/
-item replace entity @a[team=Active] inventory.0 with minecraft:arrow 64
-item replace entity @a[team=Active] hotbar.5 with minecraft:tipped_arrow{Potion:"minecraft:harming",display:{Name:"{\"text\":\"TNT Arrow\"}"}} 3
+item replace entity @a[team=Active] hotbar.7 with minecraft:arrow 64
+item replace entity @a[team=Active] hotbar.8 with minecraft:tipped_arrow{Potion:"minecraft:harming",display:{Name:"{\"text\":\"TNT Arrow\"}"}} 3
 
 # Initial Inventory \/
 item replace entity @a[team=Active] hotbar.0 with minecraft:stone_sword{Enchantments:[{id:"minecraft:knockback",lvl:3s}]}
