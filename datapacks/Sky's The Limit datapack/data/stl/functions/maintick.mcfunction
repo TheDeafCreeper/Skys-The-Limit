@@ -19,82 +19,82 @@ item replace entity @a[team=Active] inventory.19 with minecraft:iron_pickaxe{Enc
 item replace entity @a[team=Active] inventory.22 with ender_pearl 16
 
 #Item block color \/
-item replace entity @a[team=Active,scores={blockColor=0}] inventory.21 with minecraft:red_concrete 64
-item replace entity @a[team=Active,scores={blockColor=1}] inventory.21 with minecraft:orange_concrete 64
-item replace entity @a[team=Active,scores={blockColor=2}] inventory.21 with minecraft:yellow_concrete 64
-item replace entity @a[team=Active,scores={blockColor=3}] inventory.21 with minecraft:lime_concrete 64 
-item replace entity @a[team=Active,scores={blockColor=4}] inventory.21 with minecraft:green_concrete 64
-item replace entity @a[team=Active,scores={blockColor=5}] inventory.21 with minecraft:light_gray_concrete 64
-item replace entity @a[team=Active,scores={blockColor=6}] inventory.21 with minecraft:blue_concrete 64
-item replace entity @a[team=Active,scores={blockColor=7}] inventory.21 with minecraft:light_blue_concrete 64
-item replace entity @a[team=Active,scores={blockColor=8}] inventory.21 with minecraft:cyan_concrete 64
-item replace entity @a[team=Active,scores={blockColor=9}] inventory.21 with minecraft:pink_concrete 64
-item replace entity @a[team=Active,scores={blockColor=10}] inventory.21 with minecraft:purple_concrete 64
-item replace entity @a[team=Active,scores={blockColor=11}] inventory.21 with minecraft:gray_concrete 64
-item replace entity @a[team=Active,scores={blockColor=12}] inventory.21 with minecraft:black_concrete 64
-item replace entity @a[team=Active,scores={blockColor=13}] inventory.21 with minecraft:white_concrete 64
-item replace entity @a[team=Active,scores={blockColor=14}] inventory.21 with minecraft:red_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=15}] inventory.21 with minecraft:orange_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=16}] inventory.21 with minecraft:yellow_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=17}] inventory.21 with minecraft:lime_terracotta 64 
-item replace entity @a[team=Active,scores={blockColor=18}] inventory.21 with minecraft:green_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=19}] inventory.21 with minecraft:light_gray_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=20}] inventory.21 with minecraft:blue_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=21}] inventory.21 with minecraft:light_blue_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=22}] inventory.21 with minecraft:cyan_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=23}] inventory.21 with minecraft:pink_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=24}] inventory.21 with minecraft:purple_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=25}] inventory.21 with minecraft:gray_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=26}] inventory.21 with minecraft:black_terracotta 64
-item replace entity @a[team=Active,scores={blockColor=27}] inventory.21 with minecraft:white_terracotta 64
+execute as @a[team=Active,scores={blockColor=0}] store result score @s BlockCount run clear @s minecraft:red_concrete 0
+execute as @a[team=Active,scores={blockColor=1}] store result score @s BlockCount run clear @s minecraft:orange_concrete 0
+execute as @a[team=Active,scores={blockColor=2}] store result score @s BlockCount run clear @s minecraft:yellow_concrete 0
+execute as @a[team=Active,scores={blockColor=3}] store result score @s BlockCount run clear @s minecraft:lime_concrete 0
+execute as @a[team=Active,scores={blockColor=4}] store result score @s BlockCount run clear @s minecraft:green_concrete 0
+execute as @a[team=Active,scores={blockColor=5}] store result score @s BlockCount run clear @s minecraft:light_gray_concrete 0
+execute as @a[team=Active,scores={blockColor=6}] store result score @s BlockCount run clear @s minecraft:blue_concrete 0
+execute as @a[team=Active,scores={blockColor=7}] store result score @s BlockCount run clear @s minecraft:light_blue_concrete 0
+execute as @a[team=Active,scores={blockColor=8}] store result score @s BlockCount run clear @s minecraft:cyan_concrete 0
+execute as @a[team=Active,scores={blockColor=9}] store result score @s BlockCount run clear @s minecraft:pink_concrete 0
+execute as @a[team=Active,scores={blockColor=10}] store result score @s BlockCount run clear @s minecraft:purple_concrete 0
+execute as @a[team=Active,scores={blockColor=11}] store result score @s BlockCount run clear @s minecraft:gray_concrete 0
+execute as @a[team=Active,scores={blockColor=12}] store result score @s BlockCount run clear @s minecraft:black_concrete 0
+execute as @a[team=Active,scores={blockColor=13}] store result score @s BlockCount run clear @s minecraft:white_concrete 0
+execute as @a[team=Active,scores={blockColor=14}] store result score @s BlockCount run clear @s minecraft:red_terracotta 0
+execute as @a[team=Active,scores={blockColor=15}] store result score @s BlockCount run clear @s minecraft:orange_terracotta 0
+execute as @a[team=Active,scores={blockColor=16}] store result score @s BlockCount run clear @s minecraft:yellow_terracotta 0
+execute as @a[team=Active,scores={blockColor=17}] store result score @s BlockCount run clear @s minecraft:lime_terracotta 0
+execute as @a[team=Active,scores={blockColor=18}] store result score @s BlockCount run clear @s minecraft:green_terracotta 0
+execute as @a[team=Active,scores={blockColor=19}] store result score @s BlockCount run clear @s minecraft:light_gray_terracotta 0
+execute as @a[team=Active,scores={blockColor=20}] store result score @s BlockCount run clear @s minecraft:blue_terracotta 0
+execute as @a[team=Active,scores={blockColor=21}] store result score @s BlockCount run clear @s minecraft:light_blue_terracotta 0
+execute as @a[team=Active,scores={blockColor=22}] store result score @s BlockCount run clear @s minecraft:cyan_terracotta 0
+execute as @a[team=Active,scores={blockColor=23}] store result score @s BlockCount run clear @s minecraft:pink_terracotta 0
+execute as @a[team=Active,scores={blockColor=24}] store result score @s BlockCount run clear @s minecraft:purple_terracotta 0
+execute as @a[team=Active,scores={blockColor=25}] store result score @s BlockCount run clear @s minecraft:gray_terracotta 0
+execute as @a[team=Active,scores={blockColor=26}] store result score @s BlockCount run clear @s minecraft:black_terracotta 0
+execute as @a[team=Active,scores={blockColor=27}] store result score @s BlockCount run clear @s minecraft:white_terracotta 0
 
-#Premium Blocks Stone \/
-item replace entity @a[team=Active,scores={blockColor=28}] inventory.21 with minecraft:stone 64
-item replace entity @a[team=Active,scores={blockColor=29}] inventory.21 with minecraft:cobblestone 64
-item replace entity @a[team=Active,scores={blockColor=30}] inventory.21 with minecraft:granite 64
-item replace entity @a[team=Active,scores={blockColor=31}] inventory.21 with minecraft:polished_granite 64
-item replace entity @a[team=Active,scores={blockColor=32}] inventory.21 with minecraft:andesite 64
-item replace entity @a[team=Active,scores={blockColor=33}] inventory.21 with minecraft:polished_andesite 64
-item replace entity @a[team=Active,scores={blockColor=34}] inventory.21 with minecraft:diorite 64
-item replace entity @a[team=Active,scores={blockColor=35}] inventory.21 with minecraft:polished_diorite 64
-item replace entity @a[team=Active,scores={blockColor=36}] inventory.21 with minecraft:stone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=37}] inventory.21 with minecraft:mossy_stone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=38}] inventory.21 with minecraft:cracked_stone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=39}] inventory.21 with minecraft:chiseled_stone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=40}] inventory.21 with minecraft:smooth_stone 64
+execute as @a[team=Active,scores={blockColor=28}] store result score @s BlockCount run clear @s minecraft:stone 0
+execute as @a[team=Active,scores={blockColor=29}] store result score @s BlockCount run clear @s minecraft:cobblestone 0
+execute as @a[team=Active,scores={blockColor=30}] store result score @s BlockCount run clear @s minecraft:granite 0
+execute as @a[team=Active,scores={blockColor=31}] store result score @s BlockCount run clear @s minecraft:polished_granite 0
+execute as @a[team=Active,scores={blockColor=32}] store result score @s BlockCount run clear @s minecraft:andesite 0
+execute as @a[team=Active,scores={blockColor=33}] store result score @s BlockCount run clear @s minecraft:polished_andesite 0
+execute as @a[team=Active,scores={blockColor=34}] store result score @s BlockCount run clear @s minecraft:diorite 0
+execute as @a[team=Active,scores={blockColor=35}] store result score @s BlockCount run clear @s minecraft:polished_diorite 0
+execute as @a[team=Active,scores={blockColor=36}] store result score @s BlockCount run clear @s minecraft:stone_bricks 0
+execute as @a[team=Active,scores={blockColor=37}] store result score @s BlockCount run clear @s minecraft:mossy_stone_bricks 0
+execute as @a[team=Active,scores={blockColor=38}] store result score @s BlockCount run clear @s minecraft:cracked_stone_bricks 0
+execute as @a[team=Active,scores={blockColor=39}] store result score @s BlockCount run clear @s minecraft:chiseled_stone_bricks 0
+execute as @a[team=Active,scores={blockColor=40}] store result score @s BlockCount run clear @s minecraft:smooth_stone 0
 
-#Premium Blocks Nether \/
-item replace entity @a[team=Active,scores={blockColor=41}] inventory.21 with minecraft:smooth_quartz 64
-item replace entity @a[team=Active,scores={blockColor=42}] inventory.21 with minecraft:chiseled_quartz_block 64
-item replace entity @a[team=Active,scores={blockColor=43}] inventory.21 with minecraft:quartz_block 64
-item replace entity @a[team=Active,scores={blockColor=44}] inventory.21 with minecraft:quartz_bricks 64
-item replace entity @a[team=Active,scores={blockColor=45}] inventory.21 with minecraft:quartz_pillar 64
-item replace entity @a[team=Active,scores={blockColor=46}] inventory.21 with minecraft:blackstone 64
-item replace entity @a[team=Active,scores={blockColor=47}] inventory.21 with minecraft:polished_blackstone 64
-item replace entity @a[team=Active,scores={blockColor=48}] inventory.21 with minecraft:chiseled_polished_blackstone 64
-item replace entity @a[team=Active,scores={blockColor=49}] inventory.21 with minecraft:polished_blackstone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=50}] inventory.21 with minecraft:cracked_polished_blackstone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=51}] inventory.21 with minecraft:nether_bricks 64
-item replace entity @a[team=Active,scores={blockColor=52}] inventory.21 with minecraft:cracked_nether_bricks 64
-item replace entity @a[team=Active,scores={blockColor=53}] inventory.21 with minecraft:chiseled_nether_bricks 64
-item replace entity @a[team=Active,scores={blockColor=54}] inventory.21 with minecraft:red_nether_bricks 64
-item replace entity @a[team=Active,scores={blockColor=55}] inventory.21 with minecraft:basalt 64
-item replace entity @a[team=Active,scores={blockColor=56}] inventory.21 with minecraft:polished_basalt 64
-item replace entity @a[team=Active,scores={blockColor=57}] inventory.21 with minecraft:smooth_basalt 64
+execute as @a[team=Active,scores={blockColor=41}] store result score @s BlockCount run clear @s minecraft:smooth_quartz 0
+execute as @a[team=Active,scores={blockColor=42}] store result score @s BlockCount run clear @s minecraft:chiseled_quartz_block 0
+execute as @a[team=Active,scores={blockColor=43}] store result score @s BlockCount run clear @s minecraft:quartz_block 0
+execute as @a[team=Active,scores={blockColor=44}] store result score @s BlockCount run clear @s minecraft:quartz_bricks 0
+execute as @a[team=Active,scores={blockColor=45}] store result score @s BlockCount run clear @s minecraft:quartz_pillar 0
+execute as @a[team=Active,scores={blockColor=46}] store result score @s BlockCount run clear @s minecraft:blackstone 0
+execute as @a[team=Active,scores={blockColor=47}] store result score @s BlockCount run clear @s minecraft:polished_blackstone 0
+execute as @a[team=Active,scores={blockColor=48}] store result score @s BlockCount run clear @s minecraft:chiseled_polished_blackstone 0
+execute as @a[team=Active,scores={blockColor=49}] store result score @s BlockCount run clear @s minecraft:polished_blackstone_bricks 0
+execute as @a[team=Active,scores={blockColor=50}] store result score @s BlockCount run clear @s minecraft:cracked_polished_blackstone_bricks 0
+execute as @a[team=Active,scores={blockColor=51}] store result score @s BlockCount run clear @s minecraft:nether_bricks 0
+execute as @a[team=Active,scores={blockColor=52}] store result score @s BlockCount run clear @s minecraft:cracked_nether_bricks 0
+execute as @a[team=Active,scores={blockColor=53}] store result score @s BlockCount run clear @s minecraft:chiseled_nether_bricks 0
+execute as @a[team=Active,scores={blockColor=54}] store result score @s BlockCount run clear @s minecraft:red_nether_bricks 0
+execute as @a[team=Active,scores={blockColor=55}] store result score @s BlockCount run clear @s minecraft:basalt 0
+execute as @a[team=Active,scores={blockColor=56}] store result score @s BlockCount run clear @s minecraft:polished_basalt 0
+execute as @a[team=Active,scores={blockColor=57}] store result score @s BlockCount run clear @s minecraft:smooth_basalt 0
 
-#Premium Blocks Misc \/
-item replace entity @a[team=Active,scores={blockColor=58}] inventory.21 with minecraft:prismarine 64
-item replace entity @a[team=Active,scores={blockColor=59}] inventory.21 with minecraft:prismarine_bricks 64
-item replace entity @a[team=Active,scores={blockColor=60}] inventory.21 with minecraft:dark_prismarine 64
-item replace entity @a[team=Active,scores={blockColor=61}] inventory.21 with minecraft:bricks 64
-item replace entity @a[team=Active,scores={blockColor=62}] inventory.21 with minecraft:sandstone 64
-item replace entity @a[team=Active,scores={blockColor=63}] inventory.21 with minecraft:chiseled_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=64}] inventory.21 with minecraft:cut_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=65}] inventory.21 with minecraft:smooth_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=66}] inventory.21 with minecraft:red_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=67}] inventory.21 with minecraft:chiseled_red_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=68}] inventory.21 with minecraft:cut_red_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=69}] inventory.21 with minecraft:smooth_red_sandstone 64
+execute as @a[team=Active,scores={blockColor=58}] store result score @s BlockCount run clear @s minecraft:prismarine 0
+execute as @a[team=Active,scores={blockColor=59}] store result score @s BlockCount run clear @s minecraft:prismarine_bricks 0
+execute as @a[team=Active,scores={blockColor=60}] store result score @s BlockCount run clear @s minecraft:dark_prismarine 0
+execute as @a[team=Active,scores={blockColor=61}] store result score @s BlockCount run clear @s minecraft:bricks 0
+execute as @a[team=Active,scores={blockColor=62}] store result score @s BlockCount run clear @s minecraft:sandstone 0
+execute as @a[team=Active,scores={blockColor=63}] store result score @s BlockCount run clear @s minecraft:chiseled_sandstone 0
+execute as @a[team=Active,scores={blockColor=64}] store result score @s BlockCount run clear @s minecraft:cut_sandstone 0
+execute as @a[team=Active,scores={blockColor=65}] store result score @s BlockCount run clear @s minecraft:smooth_sandstone 0
+execute as @a[team=Active,scores={blockColor=66}] store result score @s BlockCount run clear @s minecraft:red_sandstone 0
+execute as @a[team=Active,scores={blockColor=67}] store result score @s BlockCount run clear @s minecraft:chiseled_red_sandstone 0
+execute as @a[team=Active,scores={blockColor=68}] store result score @s BlockCount run clear @s minecraft:cut_red_sandstone 0
+execute as @a[team=Active,scores={blockColor=69}] store result score @s BlockCount run clear @s minecraft:smooth_red_sandstone 0
+
+#Give Blocks \/
+execute as @a[team=Active,scores={BlockCount=..32}] run function stl:giveblock
 
 #Checkpoint \/
 execute as @e[tag=Setup,scores={isGameStarted=1,cpReached=0}] if entity @a[scores={Height=100..}] run function stl:checkpoint
