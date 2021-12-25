@@ -9,6 +9,9 @@ execute as @a[team=Victory,scores={isOpped=0}] run gamemode adventure @s
 execute as @a[team=Active,scores={isOpped=0}] run gamemode survival @s
 execute as @a[team=Spectator,scores={isOpped=0}] run gamemode spectator @s
 
+execute as @r[team=Active] at @s unless entity @a[team=Active,distance=0.01..] unless entity @a[team=Active,scores={Height=200..}] run tellraw @a {"text":"Not enough players ingame, canceling game.","color":"dark_red","bold":true}
+execute as @r[team=Active] at @s unless entity @a[team=Active,distance=0.01..] unless entity @a[team=Active,scores={Height=200..}] run function stl:load
+
 #Inventory Management \/
 clear @a[team=Lobby,scores={isOpped=0}]
 clear @a[team=Victory,scores={isOpped=0}]
