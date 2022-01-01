@@ -95,6 +95,7 @@ execute at @e[tag=Setup] run fill ~16 208 ~16 ~-16 224 ~-16 air replace
 execute at @e[tag=Setup] run fill ~16 224 ~16 ~-16 240 ~-16 air replace
 execute at @e[tag=Setup] run fill ~16 240 ~16 ~-16 255 ~-16 air replace
 kill @e[type=item]
+kill @e[type=arrow]
 
 kill @e[type=marker,tag=!Setup]
 execute at @e[tag=Setup] run setblock ~ ~-1 ~ minecraft:structure_block{metadata:"",mirror:"NONE",ignoreEntities:0b,powered:0b,seed:0L,author:"Corteszx",rotation:"NONE",posX:-8,mode:"LOAD",posY:0,sizeX:17,posZ:-8,integrity:1.0f,showair:0b,name:"minecraft:arena_platform",id:"minecraft:structure_block",sizeY:15,sizeZ:17,showboundingbox:0b}
