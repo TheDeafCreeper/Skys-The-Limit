@@ -109,7 +109,7 @@ item replace entity @a[team=Active,scores={blockColor=69}] hotbar.3 with minecra
 
 #Clear start area \/
 execute at @e[tag=Setup] run fill ~16 ~ ~16 ~-16 ~16 ~-16 air replace
-execute at @e[tag=Setup] run fill ~16 ~ ~16 ~-16 ~32 ~-16 air replace
+execute at @e[tag=Setup] run fill ~16 ~16 ~16 ~-16 ~32 ~-16 air replace
 execute at @e[tag=Setup] run fill ~-6 ~-1 ~-2 ~-7 ~-1 ~2 dirt replace
 execute at @e[tag=Setup] run fill ~-6 ~-1 ~-6 ~-7 ~-1 ~-7 dirt replace
 execute at @e[tag=Setup] run fill ~-8 ~-1 ~-1 ~-8 ~-1 ~1 polished_andesite replace
