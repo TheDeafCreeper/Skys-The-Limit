@@ -78,6 +78,10 @@ execute at @e[tag=Setup] positioned ~ ~ ~ run tp @a ~ ~ ~ 180.1 0.1
 execute at @e[tag=Setup] run setworldspawn ~ ~ ~
 
 #When used as reset \/
+execute at @e[tag=Setup] run fill ~16 -64 ~16 ~-16 -48 ~-16 air replace
+execute at @e[tag=Setup] run fill ~16 -48 ~16 ~-16 0 ~-32 air replace
+execute at @e[tag=Setup] run fill ~16 -32 ~16 ~-16 -16 ~-16 air replace
+execute at @e[tag=Setup] run fill ~16 -16 ~16 ~-16 0 ~-16 air replace
 execute at @e[tag=Setup] run fill ~16 0 ~16 ~-16 16 ~-16 air replace
 execute at @e[tag=Setup] run fill ~16 16 ~16 ~-16 32 ~-16 air replace
 execute at @e[tag=Setup] run fill ~16 32 ~16 ~-16 48 ~-16 air replace
@@ -93,7 +97,12 @@ execute at @e[tag=Setup] run fill ~16 176 ~16 ~-16 192 ~-16 air replace
 execute at @e[tag=Setup] run fill ~16 192 ~16 ~-16 208 ~-16 air replace
 execute at @e[tag=Setup] run fill ~16 208 ~16 ~-16 224 ~-16 air replace
 execute at @e[tag=Setup] run fill ~16 224 ~16 ~-16 240 ~-16 air replace
-execute at @e[tag=Setup] run fill ~16 240 ~16 ~-16 255 ~-16 air replace
+execute at @e[tag=Setup] run fill ~16 240 ~16 ~-16 256 ~-16 air replace
+execute at @e[tag=Setup] run fill ~16 256 ~16 ~-16 272 ~-16 air replace
+execute at @e[tag=Setup] run fill ~16 272 ~16 ~-16 288 ~-16 air replace
+execute at @e[tag=Setup] run fill ~16 288 ~16 ~-16 304 ~-16 air replace
+execute at @e[tag=Setup] run fill ~16 304 ~16 ~-16 320 ~-16 air replace
+
 kill @e[type=item]
 kill @e[type=arrow]
 
