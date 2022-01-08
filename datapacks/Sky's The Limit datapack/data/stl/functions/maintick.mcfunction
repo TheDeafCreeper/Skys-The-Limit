@@ -1,7 +1,7 @@
 #Team management \/
+execute as @e[tag=Setup,scores={isGameStarted=1}] run team join Spectator @a[team=!Active]
 execute as @e[tag=Setup,scores={isGameStarted=0}] run team join Lobby @a[team=!Lobby,team=!Victory]
 execute as @e[tag=Setup,scores={isGameStarted=1}] run team join Active @a[team=Lobby]
-execute as @e[tag=Setup,scores={isGameStarted=1}] run team join Spectator @a[team=!Active]
 execute as @a[scores={isGameStarted=1,hasLeft=1..}] run team join Spectator @s
 
 execute as @a[team=Lobby,scores={isOpped=0}] run gamemode adventure @s
