@@ -12,7 +12,7 @@ scoreboard players add @a Leaderboard 0
 scoreboard objectives setdisplay sidebar Leaderboard
 scoreboard players set @a Height 0
 scoreboard objectives add isOpped dummy
-scoreboard players set @a[name=!"Corteszx"] isOpped 0
+scoreboard players set @a[name=!"Corteszx",name=!"TheDeafCreeper"] isOpped 0
 scoreboard objectives add countdown dummy
 scoreboard players set @e[tag=Setup] countdown -1
 scoreboard objectives add Time dummy

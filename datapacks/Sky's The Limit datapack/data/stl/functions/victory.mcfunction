@@ -1,6 +1,5 @@
 #Victory! \/
 execute as @a[team=Active] run tellraw @s [{"text":"You got to Y"},{"score":{"name":"@s","objective":"MaxHeight"}},{"text":" with "},{"score":{"name":"@s","objective":"Kills"},"color":"red","bold":true},{"text":" kills!","color":"white","bold":false}]
-team empty Victory
 team join Victory @s
 function stl:load
 say has constructed the tallest tower!
