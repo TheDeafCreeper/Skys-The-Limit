@@ -100,8 +100,28 @@ execute as @a[team=Active,scores={blockColor=69}] store result score @s BlockCou
 execute as @a[team=Active,scores={BlockCount=..32}] run function stl:giveblock
 
 #Checkpoint \/
-execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 0 if entity @a[scores={Height=100..}] run function stl:checkpoint
-execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 1 if entity @a[scores={Height=250..}] run function stl:checkpoint
+execute as @a unless score @s CheckPoint matches 0.. run scoreboard players set @s CheckPoint 0
+execute as @a unless score @s CheckPoint matches 1.. if score @s Height matches 0.. run scoreboard players set @s CheckPoint 1
+execute as @a unless score @s CheckPoint matches 2.. if score @s Height matches 50.. run scoreboard players set @s CheckPoint 2
+execute as @a unless score @s CheckPoint matches 3.. if score @s Height matches 100.. run scoreboard players set @s CheckPoint 3
+execute as @a unless score @s CheckPoint matches 4.. if score @s Height matches 150.. run scoreboard players set @s CheckPoint 4
+execute as @a unless score @s CheckPoint matches 5.. if score @s Height matches 200.. run scoreboard players set @s CheckPoint 5
+execute as @a unless score @s CheckPoint matches 6.. if score @s Height matches 250.. run scoreboard players set @s CheckPoint 6
+
+spawnpoint @a[scores={CheckPoint=0}] 0 -61 0
+spawnpoint @a[scores={CheckPoint=1}] 0 1 11
+spawnpoint @a[scores={CheckPoint=2}] 0 51 11
+spawnpoint @a[scores={CheckPoint=3}] 0 101 11
+spawnpoint @a[scores={CheckPoint=4}] 0 151 11
+spawnpoint @a[scores={CheckPoint=5}] 0 201 11
+spawnpoint @a[scores={CheckPoint=6}] 0 251 11
+
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 0 if entity @a[scores={Height=0..}] run function stl:checkpoint
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 1 if entity @a[scores={Height=50..}] run function stl:checkpoint
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 2 if entity @a[scores={Height=100..}] run function stl:checkpoint
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 3 if entity @a[scores={Height=150..}] run function stl:checkpoint
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 4 if entity @a[scores={Height=200..}] run function stl:checkpoint
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 5 if entity @a[scores={Height=250..}] run function stl:checkpoint
 
 #Victory \/
 execute as @a[team=Active,scores={Height=320..}] run function stl:victory
@@ -118,7 +138,7 @@ kill @e[type=item]
 execute as @a[team=Active] if score @s Height > @s MaxHeight run scoreboard players operation @s MaxHeight = @s Height
 
 #Spawn protection \/
-execute positioned 0 -64 0 if score GameStarted GameState matches 1 run fill -3 -62 -3 -60 5 3 air replace
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 run fill -3 -62 -3 3 -60 3 air replace
 
 #Repeat \/
 schedule function stl:maintick 10t

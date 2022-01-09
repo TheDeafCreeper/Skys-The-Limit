@@ -3,6 +3,8 @@ execute as @a at @s if block ~ ~-1 ~ minecraft:red_concrete run team join Specta
 scoreboard players reset * DisplayLevel
 scoreboard players set @a DisplayLevel 0
 execute as @a unless score @s UnlockBasic matches 0.. run scoreboard players set @s UnlockBasic 1
+spawnpoint @a 0 -61 0
+scoreboard players set @a CheckPoint 0
 
 #Pick block colors \/
 scoreboard players set brng.system randomnummin 0
