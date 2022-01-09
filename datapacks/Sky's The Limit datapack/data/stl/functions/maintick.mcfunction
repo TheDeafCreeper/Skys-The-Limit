@@ -1,8 +1,6 @@
 #Team management \/
-execute as @e[tag=Setup,scores={isGameStarted=1}] run team join Spectator @a[team=!Active]
-execute as @e[tag=Setup,scores={isGameStarted=0}] run team join Lobby @a[team=!Lobby,team=!Victory]
-execute as @e[tag=Setup,scores={isGameStarted=1}] run team join Active @a[team=Lobby]
-execute as @a[scores={isGameStarted=1,hasLeft=1..}] run team join Spectator @s
+execute if score GameStarted GameState matches 1 run team join Spectator @a[team=!Active]
+execute if score GameStarted GameState matches 0 run team join Lobby @a[team=!Lobby,team=!Victory]
 
 execute as @a[team=Lobby,scores={isOpped=0}] run gamemode adventure @s
 execute as @a[team=Victory,scores={isOpped=0}] run gamemode adventure @s
@@ -22,7 +20,6 @@ item replace entity @a[team=Active] inventory.19 with minecraft:iron_pickaxe{Enc
 
 execute as @a store result score @s PearlCount run clear @s minecraft:ender_pearl 0
 give @a[team=Active,scores={PearlCount=0..8}] ender_pearl 8
-#item replace entity @a[team=Active] inventory.22 with ender_pearl 16
 
 #Item block color \/
 execute as @a[team=Active,scores={blockColor=0}] store result score @s BlockCount run clear @s minecraft:red_concrete 0
@@ -113,19 +110,15 @@ execute as @a[team=Active,scores={Height=256..}] run function stl:victory
 effect give @a[team=!Active] resistance 10 255 true
 effect give @a[team=!Active] regeneration 10 255 true
 effect give @a[team=!Active] weakness 10 255 true
-execute at @e[tag=Setup] positioned ~ ~-25 ~ run kill @a[team=Active,distance=..20]
-execute at @e[tag=Setup] run tp @a[team=Lobby,distance=18..,scores={isOpped=0}] ~ ~5 ~ 180.1 0.1
-execute at @e[tag=Setup] run tp @a[team=Victory,distance=18..,scores={isOpped=0}] ~ ~5 ~ 180.1 0.1
-execute if entity @e[tag=Setup,scores={isGameStarted=1}] unless entity @a[team=Active] run function stl:load
+execute positioned 0 -89 0 run kill @a[team=Active,distance=..20]
+execute positioned 0 -64 0 run tp @a[team=Lobby,distance=18..,scores={isOpped=0}] ~ ~5 ~ 180.1 0.1
+execute positioned 0 -64 0 run tp @a[team=Victory,distance=18..,scores={isOpped=0}] ~ ~5 ~ 180.1 0.1
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 unless entity @a[team=Active] run function stl:load
 kill @e[type=item]
 execute as @a[team=Active] if score @s Height > @s MaxHeight run scoreboard players operation @s MaxHeight = @s Height
 
 #Spawn protection \/
-execute at @e[tag=Setup,scores={isGameStarted=1}] run fill ~1 ~ ~1 ~-1 ~2 ~-1 air replace
-
-#Set to Spectator on join \/
-execute if entity @e[tag=Setup,scores={isGameStarted=1}] as @a unless score @s isInGame matches 1.. run team join Spectator @s
-scoreboard players set @a isInGame 1
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 run fill -3 -62 -3 -60 5 3 air replace
 
 #Repeat \/
 schedule function stl:maintick 10t

@@ -4,6 +4,7 @@ team join Victory @s
 function stl:load
 say has constructed the tallest tower!
 scoreboard players add @s Leaderboard 1
+scoreboard players add @s WeeklyLB 1
 
 #Fireworks \/
 schedule function stl:fireworks 20t
