@@ -100,8 +100,8 @@ execute as @a[team=Active,scores={blockColor=69}] store result score @s BlockCou
 execute as @a[team=Active,scores={BlockCount=..32}] run function stl:giveblock
 
 #Checkpoint \/
-execute as @e[tag=Setup,scores={isGameStarted=1,cpReached=0}] if entity @a[scores={Height=100..}] run function stl:checkpoint
-execute positioned 0 0 0 if entity @e[tag=Setup,scores={cpReached=1}] as @e[type=minecraft:ender_pearl,y=0,dy=50,x=-32,dx=64,z=-32,dz=64] run kill @s
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 0 if entity @a[scores={Height=100..}] run function stl:checkpoint
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 1 if entity @a[scores={Height=250..}] run function stl:checkpoint
 
 #Victory \/
 execute as @a[team=Active,scores={Height=256..}] run function stl:victory
