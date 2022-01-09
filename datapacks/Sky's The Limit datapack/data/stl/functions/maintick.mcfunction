@@ -104,7 +104,7 @@ execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score Che
 execute positioned 0 -64 0 if score GameStarted GameState matches 1 if score CheckPointReached GameState matches 1 if entity @a[scores={Height=250..}] run function stl:checkpoint
 
 #Victory \/
-execute as @a[team=Active,scores={Height=256..}] run function stl:victory
+execute as @a[team=Active,scores={Height=320..}] run function stl:victory
 
 #Misc
 effect give @a[team=!Active] resistance 10 255 true
