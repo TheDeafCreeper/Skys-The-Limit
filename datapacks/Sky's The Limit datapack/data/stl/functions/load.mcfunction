@@ -13,10 +13,10 @@ scoreboard players set @a Height 0
 scoreboard objectives add Leaderboard dummy
 scoreboard players add @a Leaderboard 0
 scoreboard objectives modify Leaderboard displayname {"text":"Leaderboard","color":"blue"}
+scoreboard objectives setdisplay sidebar Leaderboard
 
 scoreboard objectives add WeeklyLB dummy
 scoreboard players add @a WeeklyLB 0
-scoreboard objectives setdisplay sidebar WeeklyLB
 scoreboard objectives modify WeeklyLB displayname {"text":"Weekly Leaderboard","color":"gold"}
 
 scoreboard objectives add isOpped dummy
@@ -31,6 +31,7 @@ scoreboard objectives add MaxHeight dummy
 scoreboard players set @a MaxHeight 0
 
 scoreboard objectives add DisplayLevel dummy
+scoreboard objectives modify DisplayLevel displayname "Height"
 scoreboard players set @a DisplayLevel 0
 
 scoreboard objectives add PearlCount dummy
@@ -68,6 +69,7 @@ bossbar set countdown players
 effect clear @a
 difficulty easy
 kill @e[type=!player,type=!marker]
+worldborder center 0 0
 worldborder set 500 5
 worldborder damage amount 10
 worldborder damage buffer 0
