@@ -51,51 +51,6 @@ execute as @a[team=Active,scores={blockColor=25}] store result score @s BlockCou
 execute as @a[team=Active,scores={blockColor=26}] store result score @s BlockCount run clear @s minecraft:black_terracotta 0
 execute as @a[team=Active,scores={blockColor=27}] store result score @s BlockCount run clear @s minecraft:white_terracotta 0
 
-execute as @a[team=Active,scores={blockColor=28}] store result score @s BlockCount run clear @s minecraft:stone 0
-execute as @a[team=Active,scores={blockColor=29}] store result score @s BlockCount run clear @s minecraft:cobblestone 0
-execute as @a[team=Active,scores={blockColor=30}] store result score @s BlockCount run clear @s minecraft:granite 0
-execute as @a[team=Active,scores={blockColor=31}] store result score @s BlockCount run clear @s minecraft:polished_granite 0
-execute as @a[team=Active,scores={blockColor=32}] store result score @s BlockCount run clear @s minecraft:andesite 0
-execute as @a[team=Active,scores={blockColor=33}] store result score @s BlockCount run clear @s minecraft:polished_andesite 0
-execute as @a[team=Active,scores={blockColor=34}] store result score @s BlockCount run clear @s minecraft:diorite 0
-execute as @a[team=Active,scores={blockColor=35}] store result score @s BlockCount run clear @s minecraft:polished_diorite 0
-execute as @a[team=Active,scores={blockColor=36}] store result score @s BlockCount run clear @s minecraft:stone_bricks 0
-execute as @a[team=Active,scores={blockColor=37}] store result score @s BlockCount run clear @s minecraft:mossy_stone_bricks 0
-execute as @a[team=Active,scores={blockColor=38}] store result score @s BlockCount run clear @s minecraft:cracked_stone_bricks 0
-execute as @a[team=Active,scores={blockColor=39}] store result score @s BlockCount run clear @s minecraft:chiseled_stone_bricks 0
-execute as @a[team=Active,scores={blockColor=40}] store result score @s BlockCount run clear @s minecraft:smooth_stone 0
-
-execute as @a[team=Active,scores={blockColor=41}] store result score @s BlockCount run clear @s minecraft:smooth_quartz 0
-execute as @a[team=Active,scores={blockColor=42}] store result score @s BlockCount run clear @s minecraft:chiseled_quartz_block 0
-execute as @a[team=Active,scores={blockColor=43}] store result score @s BlockCount run clear @s minecraft:quartz_block 0
-execute as @a[team=Active,scores={blockColor=44}] store result score @s BlockCount run clear @s minecraft:quartz_bricks 0
-execute as @a[team=Active,scores={blockColor=45}] store result score @s BlockCount run clear @s minecraft:quartz_pillar 0
-execute as @a[team=Active,scores={blockColor=46}] store result score @s BlockCount run clear @s minecraft:blackstone 0
-execute as @a[team=Active,scores={blockColor=47}] store result score @s BlockCount run clear @s minecraft:polished_blackstone 0
-execute as @a[team=Active,scores={blockColor=48}] store result score @s BlockCount run clear @s minecraft:chiseled_polished_blackstone 0
-execute as @a[team=Active,scores={blockColor=49}] store result score @s BlockCount run clear @s minecraft:polished_blackstone_bricks 0
-execute as @a[team=Active,scores={blockColor=50}] store result score @s BlockCount run clear @s minecraft:cracked_polished_blackstone_bricks 0
-execute as @a[team=Active,scores={blockColor=51}] store result score @s BlockCount run clear @s minecraft:nether_bricks 0
-execute as @a[team=Active,scores={blockColor=52}] store result score @s BlockCount run clear @s minecraft:cracked_nether_bricks 0
-execute as @a[team=Active,scores={blockColor=53}] store result score @s BlockCount run clear @s minecraft:chiseled_nether_bricks 0
-execute as @a[team=Active,scores={blockColor=54}] store result score @s BlockCount run clear @s minecraft:red_nether_bricks 0
-execute as @a[team=Active,scores={blockColor=55}] store result score @s BlockCount run clear @s minecraft:basalt 0
-execute as @a[team=Active,scores={blockColor=56}] store result score @s BlockCount run clear @s minecraft:polished_basalt 0
-execute as @a[team=Active,scores={blockColor=57}] store result score @s BlockCount run clear @s minecraft:smooth_basalt 0
-
-execute as @a[team=Active,scores={blockColor=58}] store result score @s BlockCount run clear @s minecraft:prismarine 0
-execute as @a[team=Active,scores={blockColor=59}] store result score @s BlockCount run clear @s minecraft:prismarine_bricks 0
-execute as @a[team=Active,scores={blockColor=60}] store result score @s BlockCount run clear @s minecraft:dark_prismarine 0
-execute as @a[team=Active,scores={blockColor=61}] store result score @s BlockCount run clear @s minecraft:bricks 0
-execute as @a[team=Active,scores={blockColor=62}] store result score @s BlockCount run clear @s minecraft:sandstone 0
-execute as @a[team=Active,scores={blockColor=63}] store result score @s BlockCount run clear @s minecraft:chiseled_sandstone 0
-execute as @a[team=Active,scores={blockColor=64}] store result score @s BlockCount run clear @s minecraft:cut_sandstone 0
-execute as @a[team=Active,scores={blockColor=65}] store result score @s BlockCount run clear @s minecraft:smooth_sandstone 0
-execute as @a[team=Active,scores={blockColor=66}] store result score @s BlockCount run clear @s minecraft:red_sandstone 0
-execute as @a[team=Active,scores={blockColor=67}] store result score @s BlockCount run clear @s minecraft:chiseled_red_sandstone 0
-execute as @a[team=Active,scores={blockColor=68}] store result score @s BlockCount run clear @s minecraft:cut_red_sandstone 0
-execute as @a[team=Active,scores={blockColor=69}] store result score @s BlockCount run clear @s minecraft:smooth_red_sandstone 0
-
 #Give Blocks \/
 execute as @a[team=Active,scores={BlockCount=..32}] run function stl:giveblock
 

@@ -8,7 +8,7 @@ scoreboard players set @a CheckPoint 0
 
 #Pick block colors \/
 scoreboard players set brng.system randomnummin 0
-scoreboard players set brng.system randomnummax 29
+scoreboard players set brng.system randomnummax 27
 execute as @a run function stl:blockcolor
 
 scoreboard players set GameStarted GameState 1
@@ -63,54 +63,6 @@ item replace entity @a[team=Active,scores={blockColor=24}] hotbar.3 with minecra
 item replace entity @a[team=Active,scores={blockColor=25}] hotbar.3 with minecraft:gray_terracotta 64
 item replace entity @a[team=Active,scores={blockColor=26}] hotbar.3 with minecraft:black_terracotta 64
 item replace entity @a[team=Active,scores={blockColor=27}] hotbar.3 with minecraft:white_terracotta 64
-
-#Premium Blocks Stone \/
-item replace entity @a[team=Active,scores={blockColor=28}] hotbar.3 with minecraft:stone 64
-item replace entity @a[team=Active,scores={blockColor=29}] hotbar.3 with minecraft:cobblestone 64
-item replace entity @a[team=Active,scores={blockColor=30}] hotbar.3 with minecraft:granite 64
-item replace entity @a[team=Active,scores={blockColor=31}] hotbar.3 with minecraft:polished_granite 64
-item replace entity @a[team=Active,scores={blockColor=32}] hotbar.3 with minecraft:andesite 64
-item replace entity @a[team=Active,scores={blockColor=33}] hotbar.3 with minecraft:polished_andesite 64
-item replace entity @a[team=Active,scores={blockColor=34}] hotbar.3 with minecraft:diorite 64
-item replace entity @a[team=Active,scores={blockColor=35}] hotbar.3 with minecraft:polished_diorite 64
-item replace entity @a[team=Active,scores={blockColor=36}] hotbar.3 with minecraft:stone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=37}] hotbar.3 with minecraft:mossy_stone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=38}] hotbar.3 with minecraft:cracked_stone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=39}] hotbar.3 with minecraft:chiseled_stone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=40}] hotbar.3 with minecraft:smooth_stone 64
-
-#Premium Blocks Nether \/
-item replace entity @a[team=Active,scores={blockColor=41}] hotbar.3 with minecraft:smooth_quartz 64
-item replace entity @a[team=Active,scores={blockColor=42}] hotbar.3 with minecraft:chiseled_quartz_block 64
-item replace entity @a[team=Active,scores={blockColor=43}] hotbar.3 with minecraft:quartz_block 64
-item replace entity @a[team=Active,scores={blockColor=44}] hotbar.3 with minecraft:quartz_bricks 64
-item replace entity @a[team=Active,scores={blockColor=45}] hotbar.3 with minecraft:quartz_pillar 64
-item replace entity @a[team=Active,scores={blockColor=46}] hotbar.3 with minecraft:blackstone 64
-item replace entity @a[team=Active,scores={blockColor=47}] hotbar.3 with minecraft:polished_blackstone 64
-item replace entity @a[team=Active,scores={blockColor=48}] hotbar.3 with minecraft:chiseled_polished_blackstone 64
-item replace entity @a[team=Active,scores={blockColor=49}] hotbar.3 with minecraft:polished_blackstone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=50}] hotbar.3 with minecraft:cracked_polished_blackstone_bricks 64
-item replace entity @a[team=Active,scores={blockColor=51}] hotbar.3 with minecraft:nether_bricks 64
-item replace entity @a[team=Active,scores={blockColor=52}] hotbar.3 with minecraft:cracked_nether_bricks 64
-item replace entity @a[team=Active,scores={blockColor=53}] hotbar.3 with minecraft:chiseled_nether_bricks 64
-item replace entity @a[team=Active,scores={blockColor=54}] hotbar.3 with minecraft:red_nether_bricks 64
-item replace entity @a[team=Active,scores={blockColor=55}] hotbar.3 with minecraft:basalt 64
-item replace entity @a[team=Active,scores={blockColor=56}] hotbar.3 with minecraft:polished_basalt 64
-item replace entity @a[team=Active,scores={blockColor=57}] hotbar.3 with minecraft:smooth_basalt 64
-
-#Premium Blocks Misc \/
-item replace entity @a[team=Active,scores={blockColor=58}] hotbar.3 with minecraft:prismarine 64
-item replace entity @a[team=Active,scores={blockColor=59}] hotbar.3 with minecraft:prismarine_bricks 64
-item replace entity @a[team=Active,scores={blockColor=60}] hotbar.3 with minecraft:dark_prismarine 64
-item replace entity @a[team=Active,scores={blockColor=61}] hotbar.3 with minecraft:bricks 64
-item replace entity @a[team=Active,scores={blockColor=62}] hotbar.3 with minecraft:sandstone 64
-item replace entity @a[team=Active,scores={blockColor=63}] hotbar.3 with minecraft:chiseled_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=64}] hotbar.3 with minecraft:cut_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=65}] hotbar.3 with minecraft:smooth_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=66}] hotbar.3 with minecraft:red_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=67}] hotbar.3 with minecraft:chiseled_red_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=68}] hotbar.3 with minecraft:cut_red_sandstone 64
-item replace entity @a[team=Active,scores={blockColor=69}] hotbar.3 with minecraft:smooth_red_sandstone 64
 
 #Clear start area \/
 execute positioned 0 -64 0 run fill ~16 ~2 ~16 ~-16 ~16 ~-16 air replace
