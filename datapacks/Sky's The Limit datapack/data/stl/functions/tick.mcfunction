@@ -5,6 +5,8 @@ execute if score GameStarted GameState matches 1 run scoreboard players reset @a
 
 execute if score GameStarted GameState matches 1 as @a[team=Active] store result score @s Height run data get entity @s Pos[1]
 
+execute as @a unless score @s isOpped matches 1 run scoreboard players set @s isOpped 0
+
 #XP Bar \/
 execute as @a[team=Active] run scoreboard players operation @s DisplayLevel = @s Height
 #execute as @a[team=Active] run scoreboard players operation @s DisplayLevel += Const GameState

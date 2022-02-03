@@ -39,6 +39,9 @@ scoreboard players set @a PearlCount 0
 scoreboard objectives add BlockCount dummy
 scoreboard players set @a BlockCount 0
 
+scoreboard objectives add CheckPoint dummy
+scoreboard players set @a CheckPoint 0
+
 #Teams \/
 team add Lobby
 team add Active
