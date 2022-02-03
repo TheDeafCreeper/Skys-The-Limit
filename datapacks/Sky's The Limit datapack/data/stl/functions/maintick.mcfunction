@@ -93,7 +93,7 @@ kill @e[type=item]
 execute as @a[team=Active] if score @s Height > @s MaxHeight run scoreboard players operation @s MaxHeight = @s Height
 
 #Spawn protection \/
-execute positioned 0 -64 0 if score GameStarted GameState matches 1 run fill -3 -62 -3 3 -60 3 air replace
+execute positioned 0 -64 0 if score GameStarted GameState matches 1 run fill -1 -62 -1 1 -60 1 air replace
 
 #Repeat \/
 schedule function stl:maintick 10t
