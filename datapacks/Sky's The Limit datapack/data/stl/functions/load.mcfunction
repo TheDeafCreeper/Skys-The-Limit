@@ -12,8 +12,12 @@ scoreboard players set @a Height 0
 
 scoreboard objectives add Leaderboard dummy
 scoreboard players add @a Leaderboard 0
-scoreboard objectives setdisplay sidebar Leaderboard
 scoreboard objectives modify Leaderboard displayname {"text":"Leaderboard","color":"blue"}
+
+scoreboard objectives add WeeklyLB dummy
+scoreboard players add @a WeeklyLB 0
+scoreboard objectives setdisplay sidebar WeeklyLB
+scoreboard objectives modify WeeklyLB displayname {"text":"Weekly Leaderboard","color":"gold"}
 
 scoreboard objectives add isOpped dummy
 
@@ -26,7 +30,14 @@ scoreboard players set @a Kills 0
 scoreboard objectives add MaxHeight dummy
 scoreboard players set @a MaxHeight 0
 
-scoreboard objectives setdisplay sidebar WeeklyLB
+scoreboard objectives add DisplayLevel dummy
+scoreboard players set @a DisplayLevel 0
+
+scoreboard objectives add PearlCount dummy
+scoreboard players set @a PearlCount 0
+
+scoreboard objectives add BlockCount dummy
+scoreboard players set @a BlockCount 0
 
 #Teams \/
 team add Lobby
