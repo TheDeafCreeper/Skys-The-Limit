@@ -37,7 +37,7 @@ execute positioned 0 50 0 if score CheckPointReached GameState matches 2.. run f
 execute positioned 0 100 0 if score CheckPointReached GameState matches 3.. run setblock ~-14 ~ ~-14 minecraft:structure_block{metadata: "", mirror: "NONE", ignoreEntities: 1b, powered: 0b, seed: 0L, author: "Corteszx", rotation: "NONE", posX: 0, mode: "LOAD", posY: 0, sizeX: 29, posZ: 0, integrity: 1.0f, showair: 0b, name: "minecraft:checkpoint", id: "minecraft:structure_block", sizeY: 1, sizeZ: 29, showboundingbox: 0b}
 execute positioned 0 100 0 if score CheckPointReached GameState matches 3.. run setblock ~-14 ~ ~-13 minecraft:redstone_block
 
-execute positioned 0 100 0 if score CheckPointReached GameState matches 3.. run fill ~1 ~1 ~10 ~ ~3 ~13 air
+execute positioned 0 100 0 if score CheckPointReached GameState matches 3.. run fill ~1 ~1 ~10 ~-1 ~3 ~13 air
 
 execute positioned 0 150 0 if score CheckPointReached GameState matches 4.. run setblock ~-14 ~ ~-14 minecraft:structure_block{metadata: "", mirror: "NONE", ignoreEntities: 1b, powered: 0b, seed: 0L, author: "Corteszx", rotation: "NONE", posX: 0, mode: "LOAD", posY: 0, sizeX: 29, posZ: 0, integrity: 1.0f, showair: 0b, name: "minecraft:checkpoint", id: "minecraft:structure_block", sizeY: 1, sizeZ: 29, showboundingbox: 0b}
 execute positioned 0 150 0 if score CheckPointReached GameState matches 4.. run setblock ~-14 ~ ~-13 minecraft:redstone_block
