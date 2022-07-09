@@ -1,0 +1,8 @@
+name: Sky's The Limit
+version: '${project.version}'
+main: net.prolieum.stl.STL
+api-version: 1.19
+prefix: STL
+authors: [ TheDeafCreeper ]
+description: Prolieum Sky's The Limit plugin
+website: prolieum.net
