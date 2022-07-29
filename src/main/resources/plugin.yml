@@ -1,4 +1,4 @@
-name: Sky's The Limit
+name: SkysTheLimit
 version: '${project.version}'
 main: net.prolieum.stl.STL
 api-version: 1.19
@@ -6,3 +6,25 @@ prefix: STL
 authors: [ TheDeafCreeper ]
 description: Prolieum Sky's The Limit plugin
 website: prolieum.net
+depend:
+  - StructureBlockLib
+commands:
+  start:
+    description: Starts a game.
+    usage: /start
+    permission: prolieum.stl.start
+    permission-message: "no"
+  savethings:
+    description: Saves game components.
+    usage: /savethings
+
+permissions:
+  prolieum.stl.start:
+    description: "Lets you use /start"
+    default: "op"
+  prolieum.stl.priority:
+    description: "Gives you queue priority."
+    default: "op"
+  prolieum.stl.blocks.default:
+    description: "Allows you to use the default blocks."
+    default: "true"
