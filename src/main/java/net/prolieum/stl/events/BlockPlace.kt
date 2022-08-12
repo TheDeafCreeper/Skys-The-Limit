@@ -17,7 +17,7 @@ class BlockPlace: Listener {
         if (player.gameMode == GameMode.CREATIVE) return
 
         val game: Game? = STL.gameManager.getPlayerGame(player)
-        if (game == null) {
+        if (game == null || event.blockPlaced.location.blockY < 0) {
             event.isCancelled = true
             return
         } else event.isCancelled = game.shouldCancel() || game.isSpawnPoint(event.block.location)

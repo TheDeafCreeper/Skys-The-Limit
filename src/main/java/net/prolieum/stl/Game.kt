@@ -1,8 +1,11 @@
 package net.prolieum.stl
 
 import com.github.shynixn.structureblocklib.api.bukkit.StructureBlockLib
+import com.github.yannicklamprecht.worldborder.api.Position
+import fr.mrmicky.fastboard.FastBoard
 import net.kyori.adventure.text.Component
 import org.bukkit.*
+import org.bukkit.block.Block
 import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarStyle
 import org.bukkit.boss.KeyedBossBar
@@ -15,19 +18,45 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import java.util.*
 import kotlin.math.abs
+import kotlin.math.floor
+import kotlin.math.max
+import kotlin.math.min
 
 class Game(
     val gameLocation: Location,
     private val targetHeight: Double,
     private val checkpoints: List<Double>,
+    private val subPoints: List<Double>,
     private val players: MutableList<UUID>
 ) {
     private var tickCount: Int = 0
     private var startTime = 5
     private val bossBar: KeyedBossBar = Bukkit.getServer().createBossBar(NamespacedKey.minecraft(UUID.randomUUID().toString()), "Starting", BarColor.GREEN, BarStyle.SEGMENTED_10)
     private var nextCheckpoint: Double = 128.0
+    private var prevCheckpoint: Double = 0.0
+    private var nextSubPoint: Double = 128.0
+    private var prevSubPoint: Double = 0.0
     private val tickTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(STL.instance, this::tick, 1, 1)
     private val spawnLocation = gameLocation.clone().subtract(1.0, 0.0, 1.0)
+    private val scoreboards: MutableList<FastBoard> = ArrayList()
+    private val highestPoint: MutableMap<UUID, Double> = HashMap()
+    private var globalHighestPoint: Double = 0.0
+    private var placedDecorationLevel: Int = -1
+
+    private val pieces = listOf(
+        "firstLayer",
+        "secondLayer",
+        "thirdLayer",
+        "fourthLayer",
+        "fithLayer",
+        "sixthLayer",
+        "seventhLayer",
+        "eigthLayer",
+        "ninethLayer",
+        "tenthLayer",
+        "checkpointLayer",
+        "path2"
+    )
 
     private val blocks: List<Material> = listOf(
         Material.WHITE_CONCRETE,
@@ -60,6 +89,7 @@ class Game(
 
     init {
         if (checkpoints.isNotEmpty()) nextCheckpoint = checkpoints[0]
+        if (subPoints.isNotEmpty()) nextSubPoint = subPoints[0]
 
         for (uuid in players) {
             val player: Player = playerFromUUID(uuid)?: continue
@@ -67,13 +97,61 @@ class Game(
             player.setBedSpawnLocation(spawnLocation, true)
             player.fallDistance = 0f
             player.teleport(spawnLocation.clone().add(0.5, 0.0, 0.5))
+            showWorldBorder(player)
+            createBoard(player)
         }
+        updateBoards()
 
         giveItems()
         bossBar.progress = 1.0
 
-        val placed = placePlatform()
-        if (!placed) terminate(true)
+        placePlatform()
+    }
+
+    fun showWorldBorder(player: Player) {
+        STL.worldBorderApi.setBorder(player,29.0, Position(spawnLocation.x + .5, spawnLocation.z + .5))
+    }
+
+    private fun getSortedHeights(): List<Player> {
+        val realPlayers: MutableList<Player> = ArrayList()
+        for (uuid in players) {
+            val player: Player = playerFromUUID(uuid)?:continue
+            realPlayers.add(player)
+        }
+
+        realPlayers.sortBy { p -> p.location.blockY }
+        realPlayers.reverse()
+        return realPlayers
+    }
+
+    private fun getLines(sortedPlayers: List<Player>): List<String> {
+        var entries = 0
+        val lines: MutableList<String> = ArrayList()
+
+        for (player in sortedPlayers) {
+            if (entries > 15) break
+
+            lines.add(spaceEvenly("${player.name}:", "${player.location.blockY}"))
+
+            entries++
+        }
+
+        return lines
+    }
+
+    private fun spaceEvenly(string1: String, string2: String): String {
+        return "$string1 $string2"
+    }
+    private fun createBoard(player: Player) {
+        scoreboards.add(FastBoard(player))
+    }
+
+    private fun updateBoards() {
+        val lines = getLines(getSortedHeights())
+        for (scoreboard in scoreboards) {
+            scoreboard.updateTitle("Height")
+            scoreboard.updateLines(lines)
+        }
     }
 
     fun shouldCancel(): Boolean {
@@ -117,11 +195,13 @@ class Game(
         for (uuid in players) {
             val player: Player = playerFromUUID(uuid)?:continue
             if (player.location.y >= targetHeight) victors.add(player)
-            else if (player.location.y >= nextCheckpoint) {
+            else if (player.location.y > nextCheckpoint) {
                 placeCheckpoint(nextCheckpoint)
+                setCheckpoint(player, nextCheckpoint)
                 var changed = false
                 for (checkpoint in checkpoints) {
                     if (checkpoint > nextCheckpoint) {
+                        prevCheckpoint = nextCheckpoint
                         nextCheckpoint = checkpoint
                         changed = true
                         break
@@ -129,38 +209,79 @@ class Game(
                 }
 
                 if (!changed) nextCheckpoint = 500.0
+            } else if (player.location.y > prevCheckpoint) setCheckpoint(player, prevCheckpoint)
+            else if (player.location.y > nextSubPoint) {
+                var changed = false
+                for (subpoint in subPoints) {
+                    if (subpoint > nextSubPoint) {
+                        prevSubPoint = nextSubPoint
+                        nextSubPoint = subpoint
+                        changed = true
+                        break
+                    }
+                }
+
+                if (!changed) nextSubPoint = 500.0
+            } else if (player.location.y < prevSubPoint && prevSubPoint < 400) setCheckpoint(player, prevCheckpoint)
+            else if (player.location.y > prevCheckpoint) setCheckpoint(player, prevCheckpoint)
+            showWorldBorder(player)
+
+            if (player.location.y > globalHighestPoint) globalHighestPoint = player.location.y
+
+            if (highestPoint[player.uniqueId] == null || highestPoint[player.uniqueId]!! < player.location.y) {
+                highestPoint[player.uniqueId] = player.location.y
+                player.level = player.location.blockY
             }
+            player.exp = max(min(player.location.y / targetHeight, 1.0), 0.0).toFloat()
+        }
+
+        updateBoards()
+
+        for (projectile in projectiles) {
+            if ((abs(projectile.location.x - gameLocation.x) > 21) || (abs(projectile.location.z - gameLocation.z) > 21)) {
+                projectile.remove()
+            }
+        }
+
+        if (placedDecorationLevel < globalHighestPoint) {
+            placedDecorationLevel++
+            if (checkpoints.contains(placedDecorationLevel.toDouble())) placeDecorationPiece(10, placedDecorationLevel)
+            else if (checkpoints.contains(placedDecorationLevel.toDouble() + 1.0)) placeDecorationPiece(8, placedDecorationLevel)
+            else if (checkpoints.contains(placedDecorationLevel.toDouble() - 1.0)) placeDecorationPiece(0, placedDecorationLevel)
+            else if (placedDecorationLevel == 0) placeDecorationPiece(0, placedDecorationLevel)
+            else placeDecorationPiece(placedDecorationLevel % 10, placedDecorationLevel)
         }
 
         if (victors.size > 0) endGame(victors)
     }
 
+    private fun setCheckpoint(player: Player, height: Double) {
+        if (height > 10 && (player.bedSpawnLocation == null || player.bedSpawnLocation!!.y < height)) {
+            player.setBedSpawnLocation(spawnLocation.clone().add(0.0, (height + 1.0), -11.0), true)
+            player.sendActionBar(Component.text("${ChatColor.DARK_GREEN}Checkpoint Reached! [Spawn Point: Y${height.toInt()}]"))
+            player.playSound(player.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f)
+        }
+    }
+
     private fun mainTick() {
+        var playerCount = 0
         for (uuid in players) {
             val player: Player = playerFromUUID(uuid)?:continue
+            playerCount++
             player.foodLevel = 20
             player.saturation = 20f
-            if (player.location.y < -16) {
+            if (player.location.y < -8) {
                 player.fallDistance = 0f
                 player.teleport(player.bedSpawnLocation ?: spawnLocation)
             }
 
-            if ((abs(player.location.x - gameLocation.x) > 20) || (abs(player.location.z - gameLocation.z) > 20)) {
+            if ((abs(player.location.x - gameLocation.x) > 21) || (abs(player.location.z - gameLocation.z) > 21)) {
                 player.fallDistance = 0f
                 player.teleport(player.bedSpawnLocation ?: spawnLocation)
-            }
-
-            for (projectile in projectiles) {
-                if ((abs(projectile.location.x - gameLocation.x) > 20) || (abs(projectile.location.z - gameLocation.z) > 20)) {
-                    projectile.remove()
-                }
-            }
-
-            for (checkpoint in checkpoints) {
-                if ((player.bedSpawnLocation?:gameLocation).y > checkpoint) continue
-                if (player.location.y > checkpoint) player.setBedSpawnLocation(spawnLocation.clone().add(0.0, (checkpoint + 1.0), -11.0), true)
             }
         }
+
+        if (playerCount == 0) endGame(ArrayList<Player>())
     }
 
     fun isSpawnPoint(loc: Location): Boolean {
@@ -178,17 +299,27 @@ class Game(
         return false
     }
 
+    private fun placeDecorationPiece(piece: Int, height: Int) {
+        val location = gameLocation.clone().subtract(17.0, height.toDouble() * -1 ,17.0)
+
+        StructureBlockLib.INSTANCE
+            .loadStructure(STL.instance)
+            .at(location)
+            .loadFromPath(STL.instance.dataFolder.toPath().resolve("${pieces[piece]}.nbt"))
+            .onException { STL.instance.logger.severe("Failed to place platform!") }
+    }
+
     private fun clearArea() {
         val location = gameLocation.clone()
         var delay: Long = 1
 
-        for (y in -64..320) {
+        for (y in 0..320) {
             Bukkit.getScheduler().scheduleSyncDelayedTask(STL.instance, {
                 val loc = location.clone()
                 loc.y = y.toDouble()
 
-                for (x in -24..24) {
-                    for (z in -24..24) {
+                for (x in -23..21) {
+                    for (z in -23..21) {
                         val loc2 = loc.clone().add(x.toDouble(), 0.0, z.toDouble())
                         loc2.world.setType(loc2, Material.AIR)
                     }
@@ -198,39 +329,12 @@ class Game(
         }
     }
 
-    private fun placePlatform(): Boolean {
-        val location = gameLocation.clone().subtract(9.0, 3.0 ,9.0)
-        var placed = true
-
-        StructureBlockLib.INSTANCE
-            .loadStructure(STL.instance)
-            .at(location)
-            .loadFromPath(STL.instance.dataFolder.toPath().resolve("basePlatform.nbt"))
-            .onException { STL.instance.logger.severe("Failed to place platform!") }
-            .onResult {
-                STL.instance.logger.info("Placed platform.")
-                placed = true
-            }
-
-        return placed
+    private fun placePlatform() {
+        placeDecorationPiece(11, -1)
     }
 
     private fun placeCheckpoint(yLevel: Double): Boolean {
-        val location = gameLocation.clone().subtract(14.0, 2.0 ,14.0)
-        location.y = yLevel
-        var placed = false
-
-        StructureBlockLib.INSTANCE
-            .loadStructure(STL.instance)
-            .at(location)
-            .loadFromPath(STL.instance.dataFolder.toPath().resolve("checkpoint.nbt"))
-            .onException { STL.instance.logger.severe("Failed to place checkpoint!") }
-            .onResult {
-                STL.instance.logger.info("Placed checkpoint.")
-                placed = true
-            }
-
-        return placed
+        return true
     }
 
     private fun giveItems() {
@@ -272,7 +376,8 @@ class Game(
         }
     }
 
-    fun isBlockProtected(loc: Location): Boolean {
+    fun isBlockProtected(block: Block): Boolean {
+        val loc = block.location
         if (loc.y < 0) return true
 
         for (checkpoint in checkpoints) {
@@ -282,7 +387,7 @@ class Game(
             ) return true
         }
 
-        return false
+        return block.type == Material.ANDESITE_SLAB
     }
 
     private fun getBlock(): ItemStack {
@@ -300,18 +405,20 @@ class Game(
 
         for (uuid in players) {
             STL.gameManager.playerGames.remove(uuid)
+            STL.gameManager.mapLocations[gameLocation] = null
 
             val player: Player = playerFromUUID(uuid)?:continue
-            for (victor in victors) {
-                player.sendMessage("§6${victor.name} §fhas reached the top!")
-            }
+            for (victor in victors) player.sendMessage("§6${victor.name} §fhas reached the top!")
+            player.sendMessage("You got to Y${ChatColor.GOLD}${floor(min(highestPoint[player.uniqueId]?:0.0, targetHeight)*100)/100}${ChatColor.WHITE}!")
             player.inventory.clear()
             player.teleport(Location(Bukkit.getWorld("Void World"), 0.0, 1.0, 0.0))
+            STL.worldBorderApi.resetWorldBorderToGlobal(player)
         }
 
         clearArea()
         bossBar.removeAll()
         Bukkit.getServer().removeBossBar(bossBar.key)
+        for (board in scoreboards) board.delete()
     }
 
     fun terminate(error: Boolean) {
@@ -329,5 +436,6 @@ class Game(
         }
         Bukkit.getServer().removeBossBar(bossBar.key)
         clearArea()
+        for (board in scoreboards) board.delete()
     }
 }

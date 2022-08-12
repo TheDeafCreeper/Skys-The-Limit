@@ -14,7 +14,7 @@ class BlockBreak: Listener {
         val game: Game? = STL.gameManager.getPlayerGame(event.player)
         if (game == null) event.isCancelled = true
         else {
-            if (game.isBlockProtected(event.block.location)) event.isCancelled = true
+            if (game.isBlockProtected(event.block)) event.isCancelled = true
             else event.isCancelled = game.shouldCancel()
         }
     }

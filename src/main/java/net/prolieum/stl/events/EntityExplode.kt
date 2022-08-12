@@ -12,7 +12,7 @@ class EntityExplode: Listener {
         val game = STL.gameManager.creeperGame[event.entity] ?: return
         val blocks = event.blockList()
         for (block in blocks) {
-            val protected = game.isBlockProtected(block.location)
+            val protected = game.isBlockProtected(block)
             if (!protected) block.world.setType(block.location, Material.AIR)
         }
 

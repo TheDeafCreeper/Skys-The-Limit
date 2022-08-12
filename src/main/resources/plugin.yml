@@ -17,10 +17,16 @@ commands:
   savethings:
     description: Saves game components.
     usage: /savethings
+  testmode:
+    description: Toggles test mode.
+    usage: /testmode
 
 permissions:
   prolieum.stl.start:
     description: "Lets you use /start"
+    default: "op"
+  prolieum.stl.testmode:
+    description: "Lets you use /testmode"
     default: "op"
   prolieum.stl.priority:
     description: "Gives you queue priority."

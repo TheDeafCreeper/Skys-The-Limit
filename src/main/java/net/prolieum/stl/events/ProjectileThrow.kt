@@ -15,6 +15,7 @@ class ProjectileThrow: Listener {
     @EventHandler
     fun onProjectileThrow(event: ProjectileLaunchEvent) {
         val entity = event.entity
+        if (entity.shooter == null) return
 
         val player = entity.shooter as Player
 
