@@ -109,7 +109,7 @@ class Game(
     }
 
     fun showWorldBorder(player: Player) {
-        STL.worldBorderApi.setBorder(player,29.0, Position(spawnLocation.x + .5, spawnLocation.z + .5))
+        STL.worldBorderApi.setBorder(player,31.0, Position(spawnLocation.x + .5, spawnLocation.z + .5))
     }
 
     private fun getSortedHeights(): List<Player> {
@@ -195,7 +195,7 @@ class Game(
         for (uuid in players) {
             val player: Player = playerFromUUID(uuid)?:continue
             if (player.location.y >= targetHeight) victors.add(player)
-            else if (player.location.y > nextCheckpoint) {
+            if (player.location.y > nextCheckpoint) {
                 placeCheckpoint(nextCheckpoint)
                 setCheckpoint(player, nextCheckpoint)
                 var changed = false
@@ -209,8 +209,9 @@ class Game(
                 }
 
                 if (!changed) nextCheckpoint = 500.0
-            } else if (player.location.y > prevCheckpoint) setCheckpoint(player, prevCheckpoint)
-            else if (player.location.y > nextSubPoint) {
+            }
+            if (player.location.y > prevCheckpoint) setCheckpoint(player, prevCheckpoint)
+            if (player.location.y > nextSubPoint) {
                 var changed = false
                 for (subpoint in subPoints) {
                     if (subpoint > nextSubPoint) {
@@ -222,8 +223,9 @@ class Game(
                 }
 
                 if (!changed) nextSubPoint = 500.0
-            } else if (player.location.y < prevSubPoint && prevSubPoint < 400) setCheckpoint(player, prevCheckpoint)
-            else if (player.location.y > prevCheckpoint) setCheckpoint(player, prevCheckpoint)
+            }
+            if (player.location.y < prevSubPoint && prevSubPoint < 400) setCheckpoint(player, prevCheckpoint)
+            if (player.location.y > prevCheckpoint) setCheckpoint(player, prevCheckpoint)
             showWorldBorder(player)
 
             if (player.location.y > globalHighestPoint) globalHighestPoint = player.location.y
@@ -243,7 +245,7 @@ class Game(
             }
         }
 
-        if (placedDecorationLevel < globalHighestPoint) {
+        if (placedDecorationLevel < globalHighestPoint - 3) {
             placedDecorationLevel++
             if (checkpoints.contains(placedDecorationLevel.toDouble())) placeDecorationPiece(10, placedDecorationLevel)
             else if (checkpoints.contains(placedDecorationLevel.toDouble() + 1.0)) placeDecorationPiece(8, placedDecorationLevel)
@@ -305,6 +307,7 @@ class Game(
         StructureBlockLib.INSTANCE
             .loadStructure(STL.instance)
             .at(location)
+            .onProcessBlock { part -> (part.sourceBlock.blockData.material != Material.AIR) }
             .loadFromPath(STL.instance.dataFolder.toPath().resolve("${pieces[piece]}.nbt"))
             .onException { STL.instance.logger.severe("Failed to place platform!") }
     }
@@ -411,7 +414,7 @@ class Game(
             for (victor in victors) player.sendMessage("§6${victor.name} §fhas reached the top!")
             player.sendMessage("You got to Y${ChatColor.GOLD}${floor(min(highestPoint[player.uniqueId]?:0.0, targetHeight)*100)/100}${ChatColor.WHITE}!")
             player.inventory.clear()
-            player.teleport(Location(Bukkit.getWorld("Void World"), 0.0, 1.0, 0.0))
+            player.teleport(Location(STL.world, 0.0, 1.0, 0.0))
             STL.worldBorderApi.resetWorldBorderToGlobal(player)
         }
 

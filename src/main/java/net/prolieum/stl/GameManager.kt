@@ -1,6 +1,9 @@
 package net.prolieum.stl
 
-import org.bukkit.*
+import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarStyle
 import org.bukkit.boss.KeyedBossBar
@@ -9,16 +12,15 @@ import org.bukkit.entity.Player
 import java.util.*
 
 class GameManager {
-    private val world: World = Bukkit.getWorld("Void World")!!
     val mapLocations: MutableMap<Location, Game?> = mutableMapOf(
-        Pair(Location(world, 50.0, 0.0, 1.0), null), // U
-        Pair(Location(world, 50.0, 0.0, 51.0), null), // UR
-        Pair(Location(world, 0.0, 0.0, 51.0), null), // R
-        Pair(Location(world, -50.0, 0.0, 51.0), null), // DR
-        Pair(Location(world, -50.0, 0.0, 1.0), null), // D
-        Pair(Location(world, -50.0, 0.0, -49.0), null), // DL
-        Pair(Location(world, 0.0, 0.0, -49.0), null), // L
-        Pair(Location(world, 50.0, 0.0, -49.0), null), // UL
+        Pair(Location(STL.world, 50.0, 0.0, 1.0), null), // U
+        Pair(Location(STL.world, 50.0, 0.0, 50.0), null), // UR
+        Pair(Location(STL.world, 0.0, 0.0, 51.0), null), // R
+        Pair(Location(STL.world, -49.0, 0.0, 51.0), null), // DR
+        Pair(Location(STL.world, -50.0, 0.0, 1.0), null), // D
+        Pair(Location(STL.world, -50.0, 0.0, -48.0), null), // DL
+        Pair(Location(STL.world, 0.0, 0.0, -49.0), null), // L
+        Pair(Location(STL.world, 49.0, 0.0, -49.0), null), // UL
     )
     val playerGames: MutableMap<UUID, Game> = HashMap()
     val creeperGame: MutableMap<Creeper, Game> = HashMap()
@@ -39,7 +41,7 @@ class GameManager {
             player.foodLevel = 20
             player.saturation = 20f
             if (player.location.y < -30) {
-                player.teleport(Location(Bukkit.getWorld("Void World"), 0.0, 1.0, 0.0))
+                player.teleport(Location(STL.world, 0.0, 1.0, 0.0))
                 player.fallDistance = 0f
             }
         }

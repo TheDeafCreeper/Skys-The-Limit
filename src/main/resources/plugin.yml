@@ -8,6 +8,7 @@ description: Prolieum Sky's The Limit plugin
 website: prolieum.net
 depend:
   - StructureBlockLib
+  - SlimeWorldManager
 commands:
   start:
     description: Starts a game.
