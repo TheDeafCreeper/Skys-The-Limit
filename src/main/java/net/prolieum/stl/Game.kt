@@ -32,10 +32,10 @@ class Game(
     private var tickCount: Int = 0
     private var startTime = 5
     private val bossBar: KeyedBossBar = Bukkit.getServer().createBossBar(NamespacedKey.minecraft(UUID.randomUUID().toString()), "Starting", BarColor.GREEN, BarStyle.SEGMENTED_10)
-    private var nextCheckpoint: Double = 128.0
-    private var prevCheckpoint: Double = 0.0
-    private var nextSubPoint: Double = 128.0
-    private var prevSubPoint: Double = 0.0
+    var nextCheckpoint: Double = 128.0
+    var prevCheckpoint: Double = 0.0
+    var nextSubPoint: Double = 128.0
+    var prevSubPoint: Double = 0.0
     private val tickTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(STL.instance, this::tick, 1, 1)
     private val spawnLocation = gameLocation.clone().subtract(1.0, 0.0, 1.0)
     private val scoreboards: MutableList<FastBoard> = ArrayList()
@@ -58,7 +58,7 @@ class Game(
         "path2"
     )
 
-    private val blocks: List<Material> = listOf(
+    private val standardBlocks: List<Material> = listOf(
         Material.WHITE_CONCRETE,
         Material.ORANGE_CONCRETE,
         Material.MAGENTA_CONCRETE,
@@ -77,9 +77,30 @@ class Game(
         Material.BLACK_CONCRETE
     )
 
+    private val terracottaBlocks: List<Material> = listOf(
+        Material.WHITE_TERRACOTTA,
+        Material.ORANGE_TERRACOTTA,
+        Material.MAGENTA_TERRACOTTA,
+        Material.LIGHT_BLUE_TERRACOTTA,
+        Material.YELLOW_TERRACOTTA,
+        Material.LIME_TERRACOTTA,
+        Material.PINK_TERRACOTTA,
+        Material.GRAY_TERRACOTTA,
+        Material.LIGHT_GRAY_TERRACOTTA,
+        Material.CYAN_TERRACOTTA,
+        Material.PURPLE_TERRACOTTA,
+        Material.BLUE_TERRACOTTA,
+        Material.BROWN_TERRACOTTA,
+        Material.GREEN_TERRACOTTA,
+        Material.RED_TERRACOTTA,
+        Material.BLACK_TERRACOTTA
+    )
+
     var state = GameState.STARTING
 
     val projectiles: MutableList<Projectile> = ArrayList()
+
+    val spectators: MutableList<Player> = ArrayList()
 
     enum class GameState {
         STARTING,
@@ -97,6 +118,8 @@ class Game(
             player.setBedSpawnLocation(spawnLocation, true)
             player.fallDistance = 0f
             player.teleport(spawnLocation.clone().add(0.5, 0.0, 0.5))
+            player.isInvulnerable = false
+
             showWorldBorder(player)
             createBoard(player)
         }
@@ -108,8 +131,30 @@ class Game(
         placePlatform()
     }
 
+    fun addSpectator(player: Player) {
+        spectators.add(player)
+        showWorldBorder(player)
+        createBoard(player)
+        STL.gameManager.playerGames[player.uniqueId] = this
+    }
+
+    fun removeSpectator(player: Player) {
+        spectators.remove(player)
+        val newBoards: MutableList<FastBoard> = ArrayList()
+        for (board in scoreboards) {
+            if (board.player == player) board.delete()
+            else newBoards.add(board)
+        }
+
+        scoreboards.clear()
+        scoreboards.addAll(newBoards)
+
+        STL.worldBorderApi.resetWorldBorderToGlobal(player)
+        STL.gameManager.playerGames.remove(player.uniqueId)
+    }
+
     fun showWorldBorder(player: Player) {
-        STL.worldBorderApi.setBorder(player,31.0, Position(spawnLocation.x + .5, spawnLocation.z + .5))
+        STL.worldBorderApi.setBorder(player,32.0, Position(spawnLocation.x + .5, spawnLocation.z + .5))
     }
 
     private fun getSortedHeights(): List<Player> {
@@ -131,17 +176,44 @@ class Game(
         for (player in sortedPlayers) {
             if (entries > 15) break
 
-            lines.add(spaceEvenly("${player.name}:", "${player.location.blockY}"))
+            lines.add("${player.name}: ${player.location.blockY}")
 
             entries++
+        }
+
+        val lineLengths: MutableList<Int> = ArrayList()
+
+        var longestLine = 0
+        for (line in lines) {
+            var len = 0
+            for (c in line) {
+                val dFI: FontInfo.DefaultFontInfo = FontInfo.DefaultFontInfo.getDefaultFontInfo(c)
+                len += dFI.length
+                len++
+
+                lineLengths.add(dFI.length)
+            }
+
+            if (len > longestLine) longestLine = len
+        }
+
+
+        for (i in 0 until lines.size) {
+            val toCompensate = lineLengths[i] - longestLine
+            val spaceLength: Int = FontInfo.DefaultFontInfo.SPACE.length + 1
+            var compensated = 0
+            val sb = StringBuilder()
+            while (compensated < toCompensate) {
+                sb.append(" ")
+                compensated += spaceLength
+            }
+
+            lines[i] = "${sb}${lines[i]}"
         }
 
         return lines
     }
 
-    private fun spaceEvenly(string1: String, string2: String): String {
-        return "$string1 $string2"
-    }
     private fun createBoard(player: Player) {
         scoreboards.add(FastBoard(player))
     }
@@ -208,7 +280,10 @@ class Game(
                     }
                 }
 
-                if (!changed) nextCheckpoint = 500.0
+                if (!changed) {
+                    prevCheckpoint = nextCheckpoint
+                    nextCheckpoint = 500.0
+                }
             }
             if (player.location.y > prevCheckpoint) setCheckpoint(player, prevCheckpoint)
             if (player.location.y > nextSubPoint) {
@@ -222,7 +297,10 @@ class Game(
                     }
                 }
 
-                if (!changed) nextSubPoint = 500.0
+                if (!changed) {
+                    prevSubPoint = nextSubPoint
+                    nextSubPoint = 500.0
+                }
             }
             if (player.location.y < prevSubPoint && prevSubPoint < 400) setCheckpoint(player, prevCheckpoint)
             if (player.location.y > prevCheckpoint) setCheckpoint(player, prevCheckpoint)
@@ -245,13 +323,13 @@ class Game(
             }
         }
 
-        if (placedDecorationLevel < globalHighestPoint - 3) {
+        if (placedDecorationLevel < globalHighestPoint - 1) {
             placedDecorationLevel++
             if (checkpoints.contains(placedDecorationLevel.toDouble())) placeDecorationPiece(10, placedDecorationLevel)
             else if (checkpoints.contains(placedDecorationLevel.toDouble() + 1.0)) placeDecorationPiece(8, placedDecorationLevel)
             else if (checkpoints.contains(placedDecorationLevel.toDouble() - 1.0)) placeDecorationPiece(0, placedDecorationLevel)
-            else if (placedDecorationLevel == 0) placeDecorationPiece(0, placedDecorationLevel)
-            else placeDecorationPiece(placedDecorationLevel % 10, placedDecorationLevel)
+            //else if (placedDecorationLevel == 0) placeDecorationPiece(0, placedDecorationLevel)
+            //else placeDecorationPiece(placedDecorationLevel % 10, placedDecorationLevel)
         }
 
         if (victors.size > 0) endGame(victors)
@@ -272,14 +350,11 @@ class Game(
             playerCount++
             player.foodLevel = 20
             player.saturation = 20f
-            if (player.location.y < -8) {
-                player.fallDistance = 0f
-                player.teleport(player.bedSpawnLocation ?: spawnLocation)
-            }
 
-            if ((abs(player.location.x - gameLocation.x) > 21) || (abs(player.location.z - gameLocation.z) > 21)) {
-                player.fallDistance = 0f
-                player.teleport(player.bedSpawnLocation ?: spawnLocation)
+            if (player.location.blockX >= (gameLocation.blockX + 15) || player.location.blockX < (gameLocation.blockX - 16)) {
+                player.damage(8.0)
+            } else if (player.location.blockZ >= (gameLocation.blockZ + 15) || player.location.blockZ < (gameLocation.blockZ - 16)) {
+                player.damage(8.0)
             }
         }
 
@@ -381,12 +456,12 @@ class Game(
 
     fun isBlockProtected(block: Block): Boolean {
         val loc = block.location
-        if (loc.y < 0) return true
+        if (loc.blockY < 0) return true
 
         for (checkpoint in checkpoints) {
             if (loc.y == checkpoint
-                && (abs(loc.x - gameLocation.x) < 14 || abs(loc.z - gameLocation.z) < 14)
-                && (abs(loc.x - gameLocation.x) > 9 || abs(loc.z - gameLocation.z) > 9)
+                && (abs(loc.blockX - gameLocation.blockX) < 14 || abs(loc.z - gameLocation.blockZ) < 14)
+                && (abs(loc.blockX - gameLocation.blockX) > 9 || abs(loc.z - gameLocation.blockZ) > 9)
             ) return true
         }
 
@@ -394,6 +469,9 @@ class Game(
     }
 
     private fun getBlock(): ItemStack {
+        val blocks: MutableList<Material> = ArrayList()
+        blocks.addAll(standardBlocks)
+
         return ItemStack(blocks.random(), 64)
     }
 
@@ -405,6 +483,15 @@ class Game(
         state = GameState.ENDED
 
         for (projectile in projectiles) projectile.remove()
+        val sortedPlayers = getSortedHeights()
+
+        var message = "§6§m+-----------§6  Final Heights  §6§m-----------+\n"
+        message += "§f1. ${sortedPlayers[0].name}: ${floor(min(highestPoint[sortedPlayers[0].uniqueId]?:0.0, targetHeight)*100)/100}\n"
+        if (sortedPlayers.size > 1) message += "§f2. ${sortedPlayers[1].name}: ${floor(min(sortedPlayers[1].location.y, targetHeight)*100)/100}\n"
+        if (sortedPlayers.size > 2) message += "§f3. ${sortedPlayers[2].name}: ${floor(min(sortedPlayers[2].location.y, targetHeight)*100)/100}\n"
+        if (sortedPlayers.size > 3) message += "§f4. ${sortedPlayers[3].name}: ${floor(min(sortedPlayers[3].location.y, targetHeight)*100)/100}\n"
+        if (sortedPlayers.size > 4) message += "§f5. ${sortedPlayers[4].name}: ${floor(min(sortedPlayers[4].location.y, targetHeight)*100)/100}\n\n"
+
 
         for (uuid in players) {
             STL.gameManager.playerGames.remove(uuid)
@@ -412,10 +499,17 @@ class Game(
 
             val player: Player = playerFromUUID(uuid)?:continue
             for (victor in victors) player.sendMessage("§6${victor.name} §fhas reached the top!")
-            player.sendMessage("You got to Y${ChatColor.GOLD}${floor(min(highestPoint[player.uniqueId]?:0.0, targetHeight)*100)/100}${ChatColor.WHITE}!")
+
+            player.sendMessage(message + "§fYou got to §6Y${floor(min(highestPoint[player.uniqueId]?:0.0, targetHeight)*100)/100}\n§6§m+-----------------------------------+")
+
             player.inventory.clear()
             player.teleport(Location(STL.world, 0.0, 1.0, 0.0))
             STL.worldBorderApi.resetWorldBorderToGlobal(player)
+            player.isInvulnerable = true
+        }
+
+        for (spectator in spectators) {
+            spectator.sendMessage("$message§6§m+-----------------------------------+")
         }
 
         clearArea()

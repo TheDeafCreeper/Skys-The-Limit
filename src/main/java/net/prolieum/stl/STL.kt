@@ -4,9 +4,7 @@ import com.github.yannicklamprecht.worldborder.api.WorldBorderApi
 import com.grinderwolf.swm.api.SlimePlugin
 import com.grinderwolf.swm.api.world.properties.SlimeProperties
 import com.grinderwolf.swm.api.world.properties.SlimePropertyMap
-import net.prolieum.stl.commands.SaveThings
-import net.prolieum.stl.commands.Start
-import net.prolieum.stl.commands.TestMode
+import net.prolieum.stl.commands.*
 import net.prolieum.stl.events.*
 import org.bukkit.Bukkit
 import org.bukkit.World
@@ -54,6 +52,8 @@ class STL : JavaPlugin() {
         getCommand("start")!!.setExecutor(Start)
         getCommand("savethings")!!.setExecutor(SaveThings)
         getCommand("testmode")!!.setExecutor(TestMode)
+        getCommand("spectate")!!.setExecutor(Spectate)
+        getCommand("leave")!!.setExecutor(Leave)
 
         Bukkit.getPluginManager().registerEvents(BlockPlace(), this)
         Bukkit.getPluginManager().registerEvents(BlockBreak(), this)
@@ -64,6 +64,7 @@ class STL : JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(EntityDamageEntity(), this)
         Bukkit.getPluginManager().registerEvents(PlayerJoin(), this)
         Bukkit.getPluginManager().registerEvents(PlayerInteract(), this)
+        Bukkit.getPluginManager().registerEvents(PlayerQuit(), this)
     }
 
     override fun onDisable() {

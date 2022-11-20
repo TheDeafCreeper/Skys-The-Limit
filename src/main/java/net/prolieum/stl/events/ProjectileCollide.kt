@@ -25,6 +25,7 @@ class ProjectileCollide: Listener {
         if (game != null) {
             if (abs(arrow.location.x - game.gameLocation.x) <= 20 && abs(arrow.location.z - game.gameLocation.z) <= 20) {
                 val creeper = (arrow.world.spawnEntity(arrow.location, EntityType.CREEPER) as Creeper)
+                creeper.isPowered = true
                 STL.gameManager.creeperGame[creeper] = game
                 creeper.explode()
             }

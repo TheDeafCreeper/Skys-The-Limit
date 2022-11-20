@@ -21,6 +21,12 @@ commands:
   testmode:
     description: Toggles test mode.
     usage: /testmode
+  spectate:
+    description: Lets you spectate a player.
+    usage: /spectate
+  leave:
+    description: Lets you leave spectator.
+    usage: /leave
 
 permissions:
   prolieum.stl.start:
