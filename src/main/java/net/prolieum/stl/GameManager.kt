@@ -124,8 +124,8 @@ class GameManager {
                     75.0,
                     125.0
                 ),
-                players.map{ player -> player.uniqueId
-                } as MutableList<UUID>
+                (players.map{ player -> player.uniqueId
+                } as MutableList<UUID>).toMutableSet()
             )
             for (player in players) {
                 queueBossbar.removePlayer(player)

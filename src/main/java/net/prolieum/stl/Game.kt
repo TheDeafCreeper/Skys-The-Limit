@@ -27,7 +27,7 @@ class Game(
     private val targetHeight: Double,
     private val checkpoints: List<Double>,
     private val subPoints: List<Double>,
-    private val players: MutableList<UUID>
+    private val players: MutableSet<UUID>
 ) {
     private var tickCount: Int = 0
     private var startTime = 5
@@ -500,7 +500,8 @@ class Game(
             val player: Player = playerFromUUID(uuid)?:continue
             for (victor in victors) player.sendMessage("§6${victor.name} §fhas reached the top!")
 
-            player.sendMessage(message + "§fYou got to §6Y${floor(min(highestPoint[player.uniqueId]?:0.0, targetHeight)*100)/100}\n§6§m+-----------------------------------+")
+            player.sendMessage(message)
+            player.sendMessage("§fYou got to §6Y${floor(min(highestPoint[player.uniqueId]?:0.0, targetHeight)*100)/100}\n§6§m+-----------------------------------+")
 
             player.inventory.clear()
             player.teleport(Location(STL.world, 0.0, 1.0, 0.0))

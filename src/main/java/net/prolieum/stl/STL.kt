@@ -2,7 +2,6 @@ package net.prolieum.stl
 
 import com.github.yannicklamprecht.worldborder.api.WorldBorderApi
 import com.grinderwolf.swm.api.SlimePlugin
-import com.grinderwolf.swm.api.world.properties.SlimeProperties
 import com.grinderwolf.swm.api.world.properties.SlimePropertyMap
 import net.prolieum.stl.commands.*
 import net.prolieum.stl.events.*
@@ -28,8 +27,6 @@ class STL : JavaPlugin() {
         val slimePlugin = Bukkit.getPluginManager().getPlugin("SlimeWorldManager") as SlimePlugin
         val sqlLoader = slimePlugin.getLoader("mysql")
         val props = SlimePropertyMap()
-        props.setValue(SlimeProperties.ALLOW_ANIMALS, false)
-        props.setValue(SlimeProperties.ALLOW_MONSTERS, false)
         val slimeWorld = slimePlugin.loadWorld(sqlLoader, "SkysTheLimit", true, props)
         slimePlugin.generateWorld(slimeWorld)
         world = Bukkit.getWorld("SkysTheLimit")!!
